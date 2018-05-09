@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.iorek.designpatterns.Collector.Collector;
+import com.iorek.designpatterns.Collector.Filler;
 import com.iorek.designpatterns.Messenger.Point;
 import com.iorek.designpatterns.Messenger.SpaceCaculate;
 import com.iorek.designpatterns.Messenger.Vector;
@@ -38,8 +40,26 @@ public class ExampleInstrumentedTest {
         //Point point1 = new Point(2,2,2);
         Point point1 = pointVector;
         Logger.I(pointVector.toString());
-        assertEquals(point1.getX(),pointVector.getX());
-        assertEquals(point1,pointVector);
+        //assertEquals(point1.getX(),pointVector.getX());
+        //assertEquals(point1,pointVector);
         //assertNotEquals(point1,pointVector);
+    }
+
+    @Test
+    public void testCollector()
+    {
+        Filler filler = new Filler();
+        Collector collector = new Collector();
+        Logger.I("before collector size:"+collector.size());
+        filler.fillOne(collector);
+        filler.fillTwo(collector);
+        filler.fillThree(collector);
+        filler.fillFour(collector);
+
+        Logger.I("end collector size:"+collector.size());
+
+        Logger.I("end collector size ++++++++++:"+System.currentTimeMillis());
+
+        assertEquals(collector.size(),4);
     }
 }
