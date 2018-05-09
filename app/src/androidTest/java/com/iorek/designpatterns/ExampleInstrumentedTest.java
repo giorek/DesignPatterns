@@ -9,6 +9,12 @@ import com.iorek.designpatterns.Collector.Filler;
 import com.iorek.designpatterns.Messenger.Point;
 import com.iorek.designpatterns.Messenger.SpaceCaculate;
 import com.iorek.designpatterns.Messenger.Vector;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.GodObserver;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.ObserverInterface;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.PersonObserver;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.RegistryService;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.Singleton;
+import com.iorek.designpatterns.ObjectQuantity.Singleton.SingletonLazy;
 import com.iorek.designpatterns.Util.Logger;
 
 import org.junit.Test;
@@ -61,5 +67,39 @@ public class ExampleInstrumentedTest {
         Logger.I("end collector size ++++++++++:"+System.currentTimeMillis());
 
         assertEquals(collector.size(),4);
+    }
+
+    @Test
+    public void testSingleton()
+    {
+        Singleton singleton = Singleton.GetInstance();
+        singleton.setArgAge(10);
+        singleton.setArgName("xupeng");
+        singleton.toString();
+
+        //assertEquals(singleton.getArgName(),"xupeng");
+        //assertEquals(singleton.getArgAge(),10);
+
+        //Singleton singleton1 = Singleton.GetInstance();
+        //同一个类多次调用获取reference得到的对象时相同的
+        //assertEquals(singleton,singleton1);
+        //assertNotEquals(singleton,singleton1);
+
+        SingletonLazy singletonLazy = SingletonLazy.GetInstance();
+    }
+
+    @Test
+    public void tesetResiterLookup()
+    {
+        String name1 = "observerPerson";
+        String name2 = "observerGod";
+        ObserverInterface observerInterface = new PersonObserver();
+        ObserverInterface observerInterface1 = new GodObserver();
+        RegistryService registryService = RegistryService.GetInstance();
+        registryService.RegisterObserver(observerInterface,name1);
+        registryService.RegisterObserver(observerInterface1,name2);
+
+        registryService.LookupObserver(name1).TellYourName();
+        registryService.LookupObserver(name2).TellYourName();
     }
 }
