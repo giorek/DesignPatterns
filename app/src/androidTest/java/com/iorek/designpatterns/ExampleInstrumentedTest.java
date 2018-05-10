@@ -9,6 +9,9 @@ import com.iorek.designpatterns.Collector.Filler;
 import com.iorek.designpatterns.Messenger.Point;
 import com.iorek.designpatterns.Messenger.SpaceCaculate;
 import com.iorek.designpatterns.Messenger.Vector;
+import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlas;
+import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlasTwo;
+import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyKlas;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.GodObserver;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.ObserverInterface;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.PersonObserver;
@@ -101,5 +104,30 @@ public class ExampleInstrumentedTest {
 
         registryService.LookupObserver(name1).TellYourName();
         registryService.LookupObserver(name2).TellYourName();
+    }
+
+    /**
+     * 测试代理模式
+     */
+    @Test
+    public void testProxyModel()
+    {
+        //创建两个实现类
+        ProxyImplKlas proxyImplKlas = new ProxyImplKlas();
+        ProxyImplKlasTwo proxyImplKlasTwo = new ProxyImplKlasTwo();
+
+        //创建两个代理，为每个代理类传递一个实现类
+        ProxyKlas proxyKlasInstanceOne = new ProxyKlas(proxyImplKlas);
+        ProxyKlas proxyKlasInstanceTwo = new ProxyKlas(proxyImplKlasTwo);
+
+        //调用代理类的具体方法查看具体输出
+        proxyKlasInstanceOne.BaseMethodOne();
+        proxyKlasInstanceOne.BaseMethodTwo();
+
+        proxyKlasInstanceTwo.BaseMethodOne();
+        proxyKlasInstanceTwo.BaseMethodTwo();
+
+        assertNotEquals(proxyKlasInstanceOne,proxyKlasInstanceTwo);
+
     }
 }
