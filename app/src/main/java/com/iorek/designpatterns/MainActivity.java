@@ -3,6 +3,8 @@ package com.iorek.designpatterns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.iorek.designpatterns.DanamicProxy.DemoDanamic;
+import com.iorek.designpatterns.DanamicProxy.DemoDanamicInterface;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlas;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlasTwo;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyKlas;
@@ -17,8 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
         Logger.I(TAG,"Hello java design pattern world!!!");
 
-        TestProxyModel();
+        //TestProxyModel();
 
+        TestDanamicMethod();
     }
 
     /**
@@ -43,5 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         proxyKlasInstanceTwo.BaseMethodOne();
         proxyKlasInstanceTwo.BaseMethodTwo();
+    }
+
+    public void TestDanamicMethod()
+    {
+        new DemoDanamic().DemoMethod();
     }
 }
