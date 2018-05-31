@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.iorek.designpatterns.DanamicProxy.DemoDanamic;
 import com.iorek.designpatterns.DanamicProxy.DemoDanamicInterface;
+import com.iorek.designpatterns.Factory.SimpleFactory.BMWENUM;
+import com.iorek.designpatterns.Factory.SimpleFactory.SimpleFactory;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlas;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyImplKlasTwo;
 import com.iorek.designpatterns.ObjectDecoupling.Proxy.ProxyKlas;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         //TestProxyModel();
 
         TestDanamicMethod();
+
+        TestBmwFactory();
     }
 
     /**
@@ -51,5 +55,11 @@ public class MainActivity extends AppCompatActivity {
     public void TestDanamicMethod()
     {
         new DemoDanamic().DemoMethod();
+    }
+
+    public void TestBmwFactory()
+    {
+        new SimpleFactory().TellName(BMWENUM.BMW_LI);
+        new SimpleFactory().TellName(BMWENUM.BMW_S);
     }
 }
