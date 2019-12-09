@@ -19,6 +19,7 @@ import com.iorek.designpatterns.ObjectQuantity.Singleton.RegistryService;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.Singleton;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.SingletonLazy;
 import com.iorek.designpatterns.Util.Logger;
+import com.iorek.designpatterns.behavior.Command.CommandCaller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -129,5 +130,14 @@ public class ExampleInstrumentedTest {
 
         assertNotEquals(proxyKlasInstanceOne,proxyKlasInstanceTwo);
 
+    }
+
+    /**
+     * 测试command模式创建
+     */
+    @Test
+    public void CommandCall(){
+        CommandCaller commandCaller = new CommandCaller();
+        commandCaller.orderFood();
     }
 }
