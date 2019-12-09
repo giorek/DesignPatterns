@@ -19,6 +19,8 @@ import com.iorek.designpatterns.ObjectQuantity.Singleton.RegistryService;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.Singleton;
 import com.iorek.designpatterns.ObjectQuantity.Singleton.SingletonLazy;
 import com.iorek.designpatterns.Util.Logger;
+import com.iorek.designpatterns.V2.factory.methodfactory.ClientMethodFactory;
+import com.iorek.designpatterns.V2.prototype.Client;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
 
 import org.junit.Test;
@@ -139,5 +141,20 @@ public class ExampleInstrumentedTest {
     public void CommandCall(){
         CommandCaller commandCaller = new CommandCaller();
         commandCaller.orderFood();
+    }
+
+
+    //v2--------------------
+    @Test
+    public void v2_methodFactory(){
+        ClientMethodFactory client = new ClientMethodFactory();
+        client.createProductA();
+        client.createProductB();
+    }
+
+    @Test
+    public void v2_testPrototype(){
+        Client client = new Client();
+        client.testPrototype();
     }
 }
