@@ -25,8 +25,21 @@ import com.iorek.designpatterns.V2.bridge.GreenColor;
 import com.iorek.designpatterns.V2.bridge.PenA;
 import com.iorek.designpatterns.V2.bridge.PenB;
 import com.iorek.designpatterns.V2.bridge.RedColor;
+import com.iorek.designpatterns.V2.composite.Component;
+import com.iorek.designpatterns.V2.composite.Composite;
+import com.iorek.designpatterns.V2.composite.Leaf;
+import com.iorek.designpatterns.V2.decorate.ComponentImpl;
+import com.iorek.designpatterns.V2.decorate.Decorate;
+import com.iorek.designpatterns.V2.decorate.DecorateChild1;
+import com.iorek.designpatterns.V2.decorate.DecorateChild2;
 import com.iorek.designpatterns.V2.factory.methodfactory.ClientMethodFactory;
+import com.iorek.designpatterns.V2.flyweight.AbstractFlyweight;
+import com.iorek.designpatterns.V2.flyweight.FlyWeightFactory;
 import com.iorek.designpatterns.V2.prototype.Client;
+import com.iorek.designpatterns.V2.proxy.RealSubject1;
+import com.iorek.designpatterns.V2.proxy.SubjectInterface;
+import com.iorek.designpatterns.V2.proxy.SubjectProxy;
+import com.iorek.designpatterns.V2.visitor.VisitorClient;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
 
 import org.junit.Test;
@@ -180,5 +193,56 @@ public class ExampleInstrumentedTest {
         AbstractPen penB = new PenB();
         penB.setmColor(new RedColor());
         penB.draw();
+    }
+
+    @Test
+    public void v2_testComposite(){
+        Component componenta = new Composite("容器");
+        componenta.add(new Leaf("叶子"));
+        componenta.display();
+    }
+
+    @Test
+    public void v2_testDecorate(){
+        Decorate child1 = new DecorateChild1(new ComponentImpl());
+        Decorate child2 = new DecorateChild2(new ComponentImpl());
+        child1.componentMethod();
+        child2.componentMethod();
+
+    }
+
+    @Test
+    public void v2_testFlyWeight(){
+        FlyWeightFactory factory = new FlyWeightFactory();
+        AbstractFlyweight flyweight = factory.factory("中文");
+        flyweight.flyWeightCall();
+
+        Logger.I("------黄金分割线----------");
+        factory.factory("中文").flyWeightCall();
+
+    }
+
+    @Test
+    public void v2_testProxy(){
+        SubjectProxy proxy = new SubjectProxy();
+        proxy.subjectMethod1();
+        proxy.subjectMethod2();
+
+        SubjectInterface subject1 = new RealSubject1("实例1");
+        SubjectInterface subject2 = new RealSubject1("实例2");
+
+        proxy.setProxyObj(subject1);
+        proxy.subjectMethod1();
+        proxy.subjectMethod2();
+
+        proxy.setProxyObj(subject2);
+        proxy.subjectMethod1();
+        proxy.subjectMethod2();
+    }
+
+    @Test
+    public void v2_testVisitor(){
+        VisitorClient client = new VisitorClient();
+        client.test();
     }
 }
