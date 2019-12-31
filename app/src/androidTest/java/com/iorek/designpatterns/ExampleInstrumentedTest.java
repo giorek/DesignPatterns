@@ -39,6 +39,14 @@ import com.iorek.designpatterns.V2.prototype.Client;
 import com.iorek.designpatterns.V2.proxy.RealSubject1;
 import com.iorek.designpatterns.V2.proxy.SubjectInterface;
 import com.iorek.designpatterns.V2.proxy.SubjectProxy;
+import com.iorek.designpatterns.V2.strategy.AddConcreteStrategy;
+import com.iorek.designpatterns.V2.strategy.DivStrategy;
+import com.iorek.designpatterns.V2.strategy.MulStrategy;
+import com.iorek.designpatterns.V2.strategy.StrategyContext;
+import com.iorek.designpatterns.V2.strategy.SubtractionStrategy;
+import com.iorek.designpatterns.V2.template.GameA;
+import com.iorek.designpatterns.V2.template.GameB;
+import com.iorek.designpatterns.V2.template.GameTemplate;
 import com.iorek.designpatterns.V2.visitor.VisitorClient;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
 
@@ -56,7 +64,7 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under test.
+        // StrategyContext of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.iorek.designpatterns", appContext.getPackageName());
@@ -244,5 +252,39 @@ public class ExampleInstrumentedTest {
     public void v2_testVisitor(){
         VisitorClient client = new VisitorClient();
         client.test();
+    }
+
+    @Test
+    public void v2_testStrategy(){
+        AddConcreteStrategy  addConcreteStrategy = new AddConcreteStrategy();
+        SubtractionStrategy  subConcreteStrategy = new SubtractionStrategy();
+        MulStrategy mulStrategy = new MulStrategy();
+        DivStrategy divStrategy = new DivStrategy();
+
+        StrategyContext add = new StrategyContext(addConcreteStrategy);
+        StrategyContext sub = new StrategyContext(subConcreteStrategy);
+        StrategyContext mul = new StrategyContext(mulStrategy);
+        StrategyContext div = new StrategyContext(divStrategy);
+
+        float value = 0;
+        float num1 = 10;
+        float num2 = 20;
+
+        value = add.doOperation(num1,num2);
+        Logger.I(String.format(" add %f + %f = %f",num1,num2,value));
+        value = sub.doOperation(num1,num2);
+        Logger.I(String.format(" sub %f + %f = %f",num1,num2,value));
+        value = mul.doOperation(num1,num2);
+        Logger.I(String.format(" mul %f + %f = %f",num1,num2,value));
+        value = div.doOperation(num1,num2);
+        Logger.I(String.format(" div %f + %f = %f",num1,num2,value));
+    }
+
+    @Test
+    public void v2_testTemplate(){
+        GameTemplate gameA = new GameA();
+        GameTemplate gameB = new GameB();
+        gameA.palyGame();
+        gameB.palyGame();
     }
 }
