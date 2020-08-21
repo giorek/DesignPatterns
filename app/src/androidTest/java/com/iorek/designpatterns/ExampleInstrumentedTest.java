@@ -49,9 +49,19 @@ import com.iorek.designpatterns.V2.template.GameB;
 import com.iorek.designpatterns.V2.template.GameTemplate;
 import com.iorek.designpatterns.V2.visitor.VisitorClient;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
+import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac1;
+import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac2;
+import com.iorek.designpatterns.v3.factory.absfactroy.Envirment;
+import com.iorek.designpatterns.v3.factory.dynamic.DyCircle;
+import com.iorek.designpatterns.v3.factory.dynamic.DyFactory;
+import com.iorek.designpatterns.v3.factory.dynamic.DyShape;
+import com.iorek.designpatterns.v3.factory.simple.Circle;
+import com.iorek.designpatterns.v3.factory.simple.Shape;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -287,4 +297,46 @@ public class ExampleInstrumentedTest {
         gameA.palyGame();
         gameB.palyGame();
     }
+
+
+
+
+
+    ///........................v3
+    @Test
+    public void v3_testSimpleFactory(){
+        Shape s1 = Shape.factory("A");
+        s1.draw();
+        s1.erase();
+
+        Shape s2 = Shape.factory("B");
+        s2.draw();
+        s2.erase();
+    }
+
+    @Test
+    public void v3_testDynamicFactory(){
+        DyFactory.createFactory("A");
+        DyFactory.createFactory("B");
+        DyFactory.createFactory("B");
+        DyFactory.createFactory("A");
+
+        Iterator<String> iterator = DyFactory.mmap.keySet().iterator();
+        while (iterator.hasNext()){
+            //DyFactory factory =  DyFactory.mmap.get(iterator.next());
+            DyShape shape =DyFactory.createFactory(iterator.next());
+            shape.draw();
+            shape.erase();
+        }
+    }
+
+    @Test
+    public void v3_testAbsFac(){
+        Envirment envirment1 = new Envirment(new AbsFac1());
+        Envirment envirment2 = new Envirment(new AbsFac2());
+        envirment1.play();
+        envirment2.play();
+
+    }
+
 }
