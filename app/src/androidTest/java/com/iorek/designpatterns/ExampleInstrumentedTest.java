@@ -49,19 +49,26 @@ import com.iorek.designpatterns.V2.template.GameB;
 import com.iorek.designpatterns.V2.template.GameTemplate;
 import com.iorek.designpatterns.V2.visitor.VisitorClient;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
+import com.iorek.designpatterns.v3.builder.BuilderMode;
 import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac1;
 import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac2;
 import com.iorek.designpatterns.v3.factory.absfactroy.Envirment;
 import com.iorek.designpatterns.v3.factory.dynamic.DyCircle;
 import com.iorek.designpatterns.v3.factory.dynamic.DyFactory;
 import com.iorek.designpatterns.v3.factory.dynamic.DyShape;
+import com.iorek.designpatterns.v3.factory.prototype.PrototypeMode;
+import com.iorek.designpatterns.v3.factory.prototype.PrototypeTest;
 import com.iorek.designpatterns.v3.factory.simple.Circle;
 import com.iorek.designpatterns.v3.factory.simple.Shape;
+import com.iorek.designpatterns.v3.generic.GenericClaz;
+import com.iorek.designpatterns.v3.refacting.RefactClient;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -339,4 +346,59 @@ public class ExampleInstrumentedTest {
 
     }
 
+
+    @Test
+    public void v3_testPrototype(){
+        PrototypeMode mode = new PrototypeMode();
+        mode.setName("原型模式......");
+        PrototypeMode modeClone = mode.selfClone();
+        Logger.I("designPatterns","name:"+mode.getName()+" hashCode"+mode.hashCode() +"   name:"+modeClone.getName()+"hashCode:"+modeClone.hashCode());
+        Logger.I("designPatterns","equals:"+modeClone.equals(mode)+" == "+(modeClone.getName() == mode.getName()) );
+
+        PrototypeTest test = new PrototypeTest();
+        test.printInfo();
+    }
+
+    @Test
+    public void v3_testBuild(){
+        BuilderMode.Builder builder =  new BuilderMode.Builder();
+        BuilderMode mode = builder.setName("Monty")
+                                .setAge(18)
+                                .setTel(8888888)
+                                .setPhone(999999)
+                                .setEmail("Monty_862@gmail.com")
+                                .setAddress("location in china")
+                                .build();
+
+        Logger.I(" mode:"+mode.toString());
+
+    }
+
+    @Test
+    public void v3_testRefact(){
+        RefactClient client = new RefactClient();
+        client.test();
+    }
+
+    @Test
+    public void v3_testGeneric(){
+        List<String> sg = new ArrayList<>();
+        List<Integer> ig = new ArrayList<>();
+
+        Class sgclz = sg.getClass();
+        Class igclz = ig.getClass();
+        Logger.I(" sgclz:"+sgclz.hashCode()+" name:"+sgclz.getName());
+        Logger.I(" igclz:"+igclz.hashCode()+" name:"+igclz.getName());
+
+
+        GenericClaz<Integer> integerGenericClaz = new GenericClaz<>();
+        integerGenericClaz.setValue(100);
+        Logger.I(" integerGenericClaz:"+integerGenericClaz.getValue());
+
+        GenericClaz<String> g2 = new GenericClaz<>();
+        g2.setValue("Hello generic");
+        Logger.I(" g2:"+g2.getValue());
+
+
+    }
 }
