@@ -50,6 +50,10 @@ import com.iorek.designpatterns.V2.template.GameTemplate;
 import com.iorek.designpatterns.V2.visitor.VisitorClient;
 import com.iorek.designpatterns.behavior.Command.CommandCaller;
 import com.iorek.designpatterns.v3.builder.BuilderMode;
+import com.iorek.designpatterns.v3.command.video.AudioPlayer;
+import com.iorek.designpatterns.v3.command.video.ConcretePlayer;
+import com.iorek.designpatterns.v3.command.video.PlayerProxy;
+import com.iorek.designpatterns.v3.command.video.VideoPlayer;
 import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac1;
 import com.iorek.designpatterns.v3.factory.absfactroy.AbsFac2;
 import com.iorek.designpatterns.v3.factory.absfactroy.Envirment;
@@ -400,5 +404,19 @@ public class ExampleInstrumentedTest {
         Logger.I(" g2:"+g2.getValue());
 
 
+    }
+
+    @Test
+    public void v3_testCommand(){
+        AudioPlayer audioPlayer = new AudioPlayer();
+        VideoPlayer videoPlayer = new VideoPlayer();
+        ConcretePlayer concretePlayer = new ConcretePlayer();
+
+        PlayerProxy proxy = new PlayerProxy();
+        proxy.addPlayer(audioPlayer);
+        proxy.addPlayer(videoPlayer);
+        proxy.addPlayer(concretePlayer);
+
+        proxy.run();
     }
 }
